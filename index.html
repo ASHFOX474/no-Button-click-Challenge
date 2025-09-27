@@ -35,7 +35,7 @@
     </head>
     <body>
         <h2>Would you like to proceed?</h2>
-        <p>Try to click the <strong>No Button</strong> if you can 😉</p>
+        <p>Try to click the <strong>No Button</strong> if you can</p>
         <button id="y">Yes</button>
         <button id="n">No</button>
         <p id="m"></p>
@@ -76,7 +76,7 @@
                 }
             });
             y.addEventListener("click",()=>{
-                m.textContent="✅ Obviously, you clicked YES, and still you are trying to click the ‘No’ button, but you can’t.";
+                m.textContent="Obviously, you clicked YES, and still you are trying to click the ‘No’ button, but you can’t.";
             });
             n.addEventListener("touchstart",(ev)=>{
                 ev.preventDefault();
