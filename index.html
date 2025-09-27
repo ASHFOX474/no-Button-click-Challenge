@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="bn">
+    <head>
+    <meta charset="utf-8" />
+    <title>No - Button Click Challenge</title>
+    <style>
+        body{
+        margin:0;
+        height:100vh;
+        background:#f0f4f8;
+        font-family:sans-serif;
+        overflow:hidden;
+        }
+        h2, p{
+        text-align:center;
+        }
+        button{
+        position:absolute;
+        padding:10px 20px;
+        font-size:16px;
+        border-radius:8px;
+        border:none;
+        cursor:pointer;
+        }
+        #yes{background:#22c55e; color:white;}
+        #no{background:#ef4444; color:white;}
+        #msg{
+        position:absolute;
+        bottom:20px;
+        left:50%;
+        transform:translateX(-50%);
+        color:#333;
+        }
+    </style>
+    </head>
+    <body>
+        <h2>Would you like to proceed?</h2>
+        <p>Try to click <strong>No</strong> if you can 😉</p>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+        <p id="msg"></p>
+        <script>
+            const yes = document.getElementById("yes");
+            const no  = document.getElementById("no");
+            const msg = document.getElementById("msg");
+            function setInitialPositions(){
+                const winW = window.innerWidth;
+                const winH = window.innerHeight;
+                const gap = 20;
+                const totalWidth = yes.offsetWidth + gap + no.offsetWidth;
+                const startX = (winW - totalWidth) / 2;
+                const centerY = winH / 2;
+                yes.style.left = startX + "px";
+                yes.style.top  = centerY + "px";
+                no.style.left = (startX + yes.offsetWidth + gap) + "px";
+                no.style.top  = centerY + "px";
+            }
+            function moveNoButton(){
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+            const noW  = no.offsetWidth;
+            const noH  = no.offsetHeight;
+            const padding = 20;
+            const newX = Math.random() * (winW - noW - padding);
+            const newY = Math.random() * (winH - noH - padding);
+            no.style.left = newX + "px";
+            no.style.top  = newY + "px";
+            }
+            document.addEventListener("mousemove",(e)=> {
+            const noRect = no.getBoundingClientRect();
+            const centerX = noRect.left + noRect.width/2;
+            const centerY = noRect.top  + noRect.height/2;
+            const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY);
+            if (distance < 100){
+                moveNoButton();
+            }
+            });
+            yes.addEventListener("click",()=>{
+            msg.textContent = "✅ You said YES!";
+            });
+            no.addEventListener("touchstart",(ev)=>{
+            ev.preventDefault();
+            moveNoButton();
+            },{passive:false});
+            window.addEventListener("load", setInitialPositions);
+            window.addEventListener("resize", setInitialPositions);
+        </script>
+    </body>
+</html>
