@@ -1,89 +1,89 @@
 <!doctype html>
 <html lang="bn">
     <head>
-    <meta charset="utf-8" />
-    <title>No - Button Click Challenge</title>
-    <style>
-        body{
-        margin:0;
-        height:100vh;
-        background:#f0f4f8;
-        font-family:sans-serif;
-        overflow:hidden;
-        }
-        h2, p{
-        text-align:center;
-        }
-        button{
-        position:absolute;
-        padding:10px 20px;
-        font-size:16px;
-        border-radius:8px;
-        border:none;
-        cursor:pointer;
-        }
-        #yes{background:#22c55e; color:white;}
-        #no{background:#ef4444; color:white;}
-        #msg{
-        position:absolute;
-        bottom:20px;
-        left:50%;
-        transform:translateX(-50%);
-        color:#333;
-        }
-    </style>
+        <meta charset="utf-8"/>
+        <title>Click the 'No' button, If you can ???</title>
+        <style>
+            body{
+                margin:0;
+                height:100vh;
+                background:#f0f4f8;
+                font-family:sans-serif;
+                overflow:hidden;
+            }
+            h2,p{
+                text-align:center;
+            }
+            button{
+                position:absolute;
+                padding:10px 20px;
+                font-size:16px;
+                border-radius:8px;
+                border:none;
+                cursor:pointer;
+            }
+            #y{background:#22c55e;color:white;}
+            #n{background:#ef4444;color:white;}
+            #m{
+                position:absolute;
+                bottom:20px;
+                left:50%;
+                transform:translateX(-50%);
+                color:#333;
+            }
+        </style>
     </head>
     <body>
         <h2>Would you like to proceed?</h2>
-        <p>Try to click <strong>No</strong> if you can 😉</p>
-        <button id="yes">Yes</button>
-        <button id="no">No</button>
-        <p id="msg"></p>
+        <p>Try to click the <strong>No Button</strong> if you can 😉</p>
+        <button id="y">Yes</button>
+        <button id="n">No</button>
+        <p id="m"></p>
         <script>
-            const yes = document.getElementById("yes");
-            const no  = document.getElementById("no");
-            const msg = document.getElementById("msg");
-            function setInitialPositions(){
-                const winW = window.innerWidth;
-                const winH = window.innerHeight;
-                const gap = 20;
-                const totalWidth = yes.offsetWidth + gap + no.offsetWidth;
-                const startX = (winW - totalWidth) / 2;
-                const centerY = winH / 2;
-                yes.style.left = startX + "px";
-                yes.style.top  = centerY + "px";
-                no.style.left = (startX + yes.offsetWidth + gap) + "px";
-                no.style.top  = centerY + "px";
+            const y=document.getElementById("y");
+            const n=document.getElementById("n");
+            const m=document.getElementById("m");
+            function sp(){
+                const w=window.innerWidth;
+                const h=window.innerHeight;
+                const g=20;
+                const tw=y.offsetWidth+g+n.offsetWidth;
+                const sx=(w-tw)/2;
+                const cy=h/2;
+                y.style.left=sx+"px";
+                y.style.top=cy+"px";
+                n.style.left=(sx+y.offsetWidth+g)+"px";
+                n.style.top=cy+"px";
             }
-            function moveNoButton(){
-            const winW = window.innerWidth;
-            const winH = window.innerHeight;
-            const noW  = no.offsetWidth;
-            const noH  = no.offsetHeight;
-            const padding = 20;
-            const newX = Math.random() * (winW - noW - padding);
-            const newY = Math.random() * (winH - noH - padding);
-            no.style.left = newX + "px";
-            no.style.top  = newY + "px";
+            function mn(){
+                const w=window.innerWidth;
+                const h=window.innerHeight;
+                const nw=n.offsetWidth;
+                const nh=n.offsetHeight;
+                const p=20;
+                const x=Math.random()*(w-nw-p);
+                const y=Math.random()*(h-nh-p);
+                n.style.left=x+"px";
+                n.style.top=y+"px";
             }
-            document.addEventListener("mousemove",(e)=> {
-            const noRect = no.getBoundingClientRect();
-            const centerX = noRect.left + noRect.width/2;
-            const centerY = noRect.top  + noRect.height/2;
-            const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY);
-            if (distance < 100){
-                moveNoButton();
-            }
+            document.addEventListener("mousemove",(e)=>{
+                const r=n.getBoundingClientRect();
+                const cx=r.left+r.width/2;
+                const cy=r.top+r.height/2;
+                const d=Math.hypot(e.clientX-cx,e.clientY-cy);
+                if(d<100){
+                    mn();
+                }
             });
-            yes.addEventListener("click",()=>{
-            msg.textContent = "✅ You said YES!";
+            y.addEventListener("click",()=>{
+                m.textContent="✅ Obviously, you clicked YES, and still you are trying to click the ‘No’ button, but you can’t.";
             });
-            no.addEventListener("touchstart",(ev)=>{
-            ev.preventDefault();
-            moveNoButton();
+            n.addEventListener("touchstart",(ev)=>{
+                ev.preventDefault();
+            mn();
             },{passive:false});
-            window.addEventListener("load", setInitialPositions);
-            window.addEventListener("resize", setInitialPositions);
+            window.addEventListener("load",sp);
+            window.addEventListener("resize",sp);
         </script>
     </body>
 </html>
